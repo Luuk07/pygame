@@ -1,5 +1,3 @@
-
-
 import pygame
 import random
 
@@ -153,10 +151,6 @@ while run:
         pygame.draw.line(screen, (255, 255, 255), (line_position, 0), (line_position, WIN_SIZE), 2)
         pygame.draw.line(screen, (255, 255, 255), (0, line_position), (WIN_SIZE, line_position), 2)
 
-
-
-    #wall1 = pygame.draw.line(screen, (255, 0, 0), (-1, 0), (-1, WIN_SIZE), 1)
-    #wall2 = pygame.draw.line(screen, (300, 255, 255), (0, -1), (WIN_SIZE, -1), 2)
 
     play_sound = True
 
