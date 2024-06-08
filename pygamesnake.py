@@ -1,5 +1,7 @@
+
 import pygame
 import random
+
 
 
 
@@ -38,9 +40,28 @@ apfel_collect = pygame.mixer.Sound("mario_coin_sound.mp3")
 apfel_collect.set_volume(0.3)
 uff_sound = pygame.mixer.Sound("falsche-antwort.mp3.")
 uff_sound.set_volume(0.3)
+jubel = pygame.mixer.Sound("hsv-torhymne.mp3")
+jubel.set_volume(0.1)
 
 #FPS
 clock = pygame.time.Clock()
+
+#Score
+Score = 0
+#Schriftart vom text
+schriftart = pygame.font.SysFont("Arial", 45)
+#level
+level = 0
+
+gruen = (0, 255, 0)
+rot = (255, 0, 0)
+blau = (0, 0, 255)
+
+
+
+
+
+l = True
 
 run=True
 while run:
@@ -54,14 +75,6 @@ while run:
         # Wenn "QUIT" ausgeführt wird dann geht man raus
         if event.type == pygame.QUIT:
             run = False
-
-
-
-
-
-
-
-
 
 
 
@@ -114,6 +127,7 @@ while run:
         snake_lenght = 10
         step_x = 0
         step_y = 0
+        Score = 0
 
 
 
@@ -152,21 +166,19 @@ while run:
         pygame.draw.line(screen, (255, 255, 255), (0, line_position), (WIN_SIZE, line_position), 2)
 
 
-    play_sound = True
+
+
+
+
 
     if head_x < 0 or head_x > 800 or head_y < 0 or head_y > 800:
-        if play_sound:
-            uff_sound.play()
-            play_sound = False
+        uff_sound.play()
+        play_sound = False
         body_parts = []
         snake_lenght = 10
         step_x = 0
         step_y = 0
-
-
-
-
-
+        Score = 0
 
 
 
@@ -183,6 +195,39 @@ while run:
         Randomapple_x = random.choice(Randomsize)
         Randomapple_y = random.choice(Randomsize)
         apfel_collect.play()
+        Score += 1
+
+
+    # Text wird gerendert und gezeichnet.
+    text = schriftart.render(f"Score:{Score}", True, (0, 0, 255))
+    screen.blit(text, (600, -1))
+
+    text = schriftart.render(f"Level:{level}", True, (255, 0, 0))
+    screen.blit(text, (400, -1))
+    #Zufällige Farbe für snake head
+    random_color = list(range(0, 256))
+    random_color1 = random.choice(random_color)
+    random_color2 = random.choice(random_color)
+    random_color3 = random.choice(random_color)
+
+    zufaellige_farbe = (random_color1, random_color2, random_color3)
+
+
+
+
+
+
+#Level
+    if Score == 10  or Score == 20 or Score == 30 or Score == 40 or Score == 50 or Score == 60 or Score == 70 or Score == 80 or Score == 90:
+        snake_head = pygame.draw.rect(screen, (zufaellige_farbe), (head_x, head_y, SQUARE_SIZE, SQUARE_SIZE))
+        if l:
+            jubel.play()
+            level += 1
+            l = False
+
+    if Score == 11 or Score == 21 or Score == 31 or Score == 41 or Score == 51 or Score == 61 or Score == 71 or Score == 81 or Score == 91:
+        jubel.stop()
+        l = True
 
 
 
