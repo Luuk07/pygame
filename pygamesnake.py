@@ -179,6 +179,7 @@ while run:
         step_x = 0
         step_y = 0
         Score = 0
+        level = 0
 
 
 
